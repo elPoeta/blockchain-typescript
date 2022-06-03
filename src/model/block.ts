@@ -1,10 +1,11 @@
-import { GENESIS_DATA } from '../config/config';
-import { IBlockProps, mineBlockType } from '../interfaces/block/IBlock';
+import { GENESIS_DATA } from "../config/config";
+import { IBlockProps, mineBlockType } from "../interfaces/block/IBlock";
+import { cryptoHash } from "../utils/crytoHash";
 export class Block {
   private _timestamp: number;
   private _hash: string;
   private _lastHash: string;
-  private _data: any[]
+  private _data: any[];
 
   constructor(blockProps: IBlockProps) {
     this._timestamp = blockProps.timestamp;
@@ -18,11 +19,14 @@ export class Block {
   }
 
   static mine({ lastBlock, data }: mineBlockType): Block {
+    const timestamp = Date.now();
+    const { hash, lastHash } = lastBlock;
+
     return new this({
-      timestamp: Date.now(),
-      hash: lastBlock.lastHash + '*',
-      lastHash: lastBlock.hash,
-      data
+      timestamp,
+      hash: cryptoHash(timestamp, lastHash, data),
+      lastHash: hash,
+      data,
     });
   }
 
