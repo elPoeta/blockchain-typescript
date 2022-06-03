@@ -1,4 +1,4 @@
-import { IBlockProps } from "../interfaces/block/IBlockProps";
+import { IBlockProps } from "../interfaces/block/IBlock";
 
 export const GENESIS_DATA: IBlockProps = {
   timestamp: Date.now(),

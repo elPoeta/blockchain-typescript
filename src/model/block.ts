@@ -1,5 +1,5 @@
 import { GENESIS_DATA } from '../config/config';
-import { IBlockProps } from '../interfaces/block/IBlockProps';
+import { IBlockProps, mineBlockType } from '../interfaces/block/IBlock';
 export class Block {
   private _timestamp: number;
   private _hash: string;
@@ -14,8 +14,18 @@ export class Block {
   }
 
   static genesis(): Block {
-    return new Block(GENESIS_DATA);
+    return new this(GENESIS_DATA);
   }
+
+  static mine({ lastBlock, data }: mineBlockType): Block {
+    return new this({
+      timestamp: Date.now(),
+      hash: lastBlock.lastHash + '*',
+      lastHash: lastBlock.hash,
+      data
+    });
+  }
+
   get timestamp() {
     return this._timestamp;
   }
