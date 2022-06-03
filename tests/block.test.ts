@@ -1,14 +1,14 @@
-import { GENESIS_DATA } from '../src/config/config';
-import { IBlockProps } from '../src/interfaces/block/IBlock';
-import { Block } from '../src/model/block';
+import { GENESIS_DATA } from "../src/config/config";
+import { IBlockProps } from "../src/interfaces/block/IBlock";
+import { Block } from "../src/model/block";
 
 describe("Block", () => {
   const blockProps: IBlockProps = {
     timestamp: Date.now(),
-    hash: 'elpoeta-hash',
-    lastHash: 'elpoeta-lasthash',
-    data: ['blockchain', 'data']
-  }
+    hash: "elpoeta-hash",
+    lastHash: "elpoeta-lasthash",
+    data: ["blockchain", "data"],
+  };
   const block: Block = new Block(blockProps);
   describe("block has properties", () => {
     it("has a timestamp property", () => {
@@ -25,35 +25,35 @@ describe("Block", () => {
     });
   });
 
-  describe('genesis', () => {
+  describe("genesis", () => {
     const genesisBlock: Block = Block.genesis();
-    it('return a block instance', () => {
+    it("return a block instance", () => {
       expect(genesisBlock instanceof Block).toBe(true);
     });
-    it('return genesis hash', () => {
+    it("return genesis hash", () => {
       expect(genesisBlock.hash).toEqual(GENESIS_DATA.hash);
     });
   });
 
-  describe('mine()', () => {
+  describe("mine()", () => {
     const lastBlock = Block.genesis();
-    const data = ['mined-block'];
+    const data = ["mined-block"];
     const minedBlock = Block.mine({ lastBlock, data });
 
-    it('returns a block instance', () => {
+    it("returns a block instance", () => {
       expect(minedBlock instanceof Block).toBe(true);
-    })
+    });
 
-    it('set the `lastHash to be the hash of the lastBlock`', () => {
+    it("set the `lastHash to be the hash of the lastBlock`", () => {
       expect(minedBlock.lastHash).toEqual(lastBlock.hash);
-    })
+    });
 
-    it('set data', () => {
+    it("set data", () => {
       expect(minedBlock.data).toEqual(data);
-    })
+    });
 
-    it('set timestamp', () => {
+    it("set timestamp", () => {
       expect(minedBlock.timestamp).not.toEqual(undefined);
-    })
+    });
   });
 });
