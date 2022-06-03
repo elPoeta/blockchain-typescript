@@ -1,3 +1,4 @@
+import { GENESIS_DATA } from '../config/config';
 import { IBlockProps } from '../interfaces/block/IBlockProps';
 export class Block {
   private _timestamp: number;
@@ -12,6 +13,9 @@ export class Block {
     this._data = blockProps.data;
   }
 
+  static genesis(): Block {
+    return new Block(GENESIS_DATA);
+  }
   get timestamp() {
     return this._timestamp;
   }

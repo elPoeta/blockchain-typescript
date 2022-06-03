@@ -1,3 +1,4 @@
+import { GENESIS_DATA } from '../src/config/config';
 import { IBlockProps } from '../src/interfaces/block/IBlockProps';
 import { Block } from '../src/model/block';
 
@@ -24,4 +25,13 @@ describe("Block", () => {
     });
   });
 
+  describe('genesis', () => {
+    const genesisBlock: Block = Block.genesis();
+    it('return a block instance', () => {
+      expect(genesisBlock instanceof Block).toBe(true);
+    });
+    it('return genesis hash', () => {
+      expect(genesisBlock.hash).toEqual(GENESIS_DATA.hash);
+    });
+  });
 });
