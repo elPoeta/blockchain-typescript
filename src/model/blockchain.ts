@@ -27,6 +27,12 @@ export class Blockchain {
     return true;
   }
 
+  replaceChain(chain: any[]) {
+    if (chain.length <= this._chain.length) return;
+    if (!Blockchain.isValidChain(chain)) return;
+    this._chain = chain;
+  }
+
   setFieldAt({
     index,
     field,
