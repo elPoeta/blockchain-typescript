@@ -8,7 +8,7 @@ export class Blockchain {
     this._chain = [Block.genesis()];
   }
 
-  addBlock({ data }: { data: string }) {
+  addBlock({ data }: { data: string[] }) {
     const lastBlock = this._chain[this.len() - 1];
     const block = Block.mine({ lastBlock, data });
     this._chain.push(block);
@@ -21,7 +21,7 @@ export class Blockchain {
       const { timestamp, hash, lastHash, data } = chain[i];
       const previusHash = chain[i - 1].hash;
       if (previusHash !== lastHash) return false;
-      const validateHash = cryptoHash(timestamp, lastHash, data);
+      const validateHash = cryptoHash(timestamp, lastHash, ...data);
       if (hash !== validateHash) return false;
     }
     return true;

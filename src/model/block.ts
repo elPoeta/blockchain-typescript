@@ -20,11 +20,11 @@ export class Block {
 
   static mine({ lastBlock, data }: mineBlockType): Block {
     const timestamp = Date.now();
-    const { hash, lastHash } = lastBlock;
+    const { hash } = lastBlock;
 
     return new this({
       timestamp,
-      hash: cryptoHash(timestamp, lastHash, data),
+      hash: cryptoHash(timestamp, hash, ...data),
       lastHash: hash,
       data,
     });
