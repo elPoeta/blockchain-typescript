@@ -5,9 +5,11 @@ export interface IBlockProps {
   hash: string;
   lastHash: string;
   data: any[];
+  nonce: number;
+  difficulty: number;
 }
 
 export type mineBlockType = {
-  lastBlock: Block,
-  data: any
-}
+  lastBlock: Block;
+  data: any;
+};
